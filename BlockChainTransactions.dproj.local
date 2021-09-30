@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.399,C:\Users\TIGER\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\TIGER\Desktop\BlockChainTransactions\Main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.757,=C:\Users\TIGER\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.544,=E:\КИТ\ППИМС_лекция_1\XamarinForms+Delphi\BlockChainTransactions\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.399,C:\Users\TIGER\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\Users\TIGER\Desktop\BlockChainTransactions\Main.fmx</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.823,C:\Users\TIGER\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\TIGER\Desktop\BlockChainTransactions\BlockChainTransactions.dproj</Transaction>
+  </Transactions>
+	<ActiveMobileDevice>
+		<NoProfile Android=""/>
+	</ActiveMobileDevice>
+</BorlandProject>

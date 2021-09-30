@@ -1,0 +1,99 @@
+unit Main;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, REST.Types,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMXTee.Engine, FMXTee.Series,
+  FMXTee.Procs, FMXTee.Chart, Data.DB, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, REST.Response.Adapter, REST.Client, Data.Bind.Components,
+  Data.Bind.ObjectScope, FMX.Memo.Types, FMX.ScrollBox, FMX.Memo,
+  System.Net.URLClient, System.Net.HttpClient, System.Net.HttpClientComponent, json, System.Threading;
+
+    const
+    NOT_BUSY = 0;
+    BUSY = 0;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    NetHTTPClient1: TNetHTTPClient;
+    Memo1: TMemo;
+    Chart1: TChart;
+    Series1: TLineSeries;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.fmx}
+
+function StreamToString(aStream: TStream): string;
+var
+  SS: TStringStream;
+begin
+  if aStream <> nil then
+  begin
+    SS := TStringStream.Create('');
+    try
+      SS.CopyFrom(aStream, 0);  // No need to position at 0 nor provide size
+      Result := SS.DataString;
+    finally
+      SS.Free;
+    end;
+  end else
+  begin
+    Result := '';
+  end;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var s:string; JSON: TJSONObject;
+    JSONDetail: TJSONArray;
+begin
+  if NetHTTPClient1.Tag=NOT_BUSY then
+    begin
+
+      TTask.Run(procedure var LResponse: TMemoryStream; begin
+        LResponse := TMemoryStream.Create;
+        try
+          NetHTTPClient1.Get('https://api.blockchain.info/charts/transactions-per-second',LResponse);
+          TThread.Synchronize(nil,procedure
+          var i:integer;
+          begin
+
+              Chart1.Series[0].Clear;
+              s:=StreamToString(LResponse);
+
+              // Парсим полученный ответ и достаем из него информацию
+              JSON := TJSONObject.ParseJSONValue(s) as TJSONObject;
+              JSONDetail:=TJSONArray(JSON.Get('values').JsonValue);
+
+            for i:=0 to JSONDetail.Size-1 do
+            begin
+            Chart1.Series[0].AddXY((TJSONPair(TJSONObject(JSONDetail.Get(i)).Get('x')).JsonValue.Value).ToDouble(),(TJSONPair(TJSONObject(JSONDetail.Get(i)).Get('y')).JsonValue.Value).ToDouble());
+             Memo1.Lines.Add('x: '+(TJSONPair(TJSONObject(JSONDetail.Get(i)).Get('x')).JsonValue.Value)+' y: '+(TJSONPair(TJSONObject(JSONDetail.Get(i)).Get('y')).JsonValue.Value));
+            end;
+
+          end);
+        finally
+          LResponse.Free;
+          NetHTTPClient1.Tag := NOT_BUSY;
+
+        end;
+      end);
+    end;
+end;
+
+
+end.

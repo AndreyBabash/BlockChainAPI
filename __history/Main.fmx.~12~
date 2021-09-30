@@ -1,0 +1,90 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'BlockChainTransactions'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object Button1: TButton
+    Align = Bottom
+    Position.Y = 416.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 64.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Text = 'GET TRANSACTIONS'
+    OnClick = Button1Click
+  end
+  object ToolBar1: TToolBar
+    Size.Width = 640.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 8
+    TintColor = claSlategray
+    object Label1: TLabel
+      Align = Client
+      StyledSettings = [Family]
+      Size.Width = 640.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 16.000000000000000000
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claChartreuse
+      TextSettings.HorzAlign = Center
+      Text = 'BlockChainTransactions'
+      TabOrder = 0
+    end
+  end
+  object StatusLabel: TLabel
+    Align = Top
+    Position.Y = 48.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 17.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Status'
+    TabOrder = 10
+  end
+  object Chart1: TChart
+    Foot.Font.StyleExt = {00040000000200000004000000}
+    Legend.Title.Font.StyleExt = {00070000000000000004000000}
+    SubFoot.Font.StyleExt = {00040000000200000004000000}
+    Title.Text.Strings = (
+      'Transactions')
+    ClipPoints = False
+    View3D = False
+    Zoom.Brush.Kind = None
+    Zoom.Pen.Fill.Color = claSilver
+    Align = Client
+    TabOrder = 11
+    Size.Width = 640.000000000000000000
+    Size.Height = 338.000000000000000000
+    Size.PlatformDefault = False
+    ColorPaletteIndex = 13
+    object Series1: TLineSeries
+      Brush.BackColor = x00FFFFFF
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+  object ProgressBar1: TProgressBar
+    Align = Top
+    Orientation = Horizontal
+    Position.Y = 65.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 13.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object NetHTTPClient1: TNetHTTPClient
+    UserAgent = 'Embarcadero URI Client/1.0'
+    SecureProtocols = [TLS11]
+    Left = 496
+    Top = 80
+  end
+end
